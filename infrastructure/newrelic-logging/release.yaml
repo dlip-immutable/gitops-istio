@@ -1,53 +1,22 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-    name: nginx
+  name: nginx
 spec:
-    releaseName: newrelic-logging
-    chart:
-        spec:
-            chart: newrelic-logging
-            sourceRef:
-                kind: HelmRepository
-                name: newrelic
-                namespace: flux-system
-            version: 1.4.8
-    interval: 1h0m0s
-    install:
-        remediation:
-            retries: 3
-    # Default values
-    # https://github.com/newrelic/helm-charts/blob/master/charts/newrelic-logging/values.yaml
-    values:
-        licenseKey: ENC[AES256_GCM,data:Z46/+7ack461hWHVI5g1baiagICorT5WpM0mlHUJy3YuqN4N707l0w==,iv:f7TDLizXZMDLntLkRDYfuFVyR3c/cObM8fI2mceeCSk=,tag:ol0rL7e1UC2dky1CCzBC6Q==,type:str]
-sops:
-    kms: []
-    gcp_kms: []
-    azure_kv: []
-    hc_vault: []
-    age: []
-    lastmodified: "2021-05-28T07:51:18Z"
-    mac: ENC[AES256_GCM,data:gCzPHBzJ0+RR6M+em+37g4cyK/BhhzJMyfX82bXNcE3zSP4ew+iVUZ4c8PCktNWtpEjbSrGNxKROUJMt13ZGqbhizWR7q0WILeAFQskSD7Pb0SbzH6hss+njoW2Byz6y5/eATOaSLBnEVTJwE4nnhzrOdT81t9iZ5QkwJNXBycY=,iv:MTco9BaxZAOEuBnVfOerhcDHMEa1H1Y6kpRmrAR5hsA=,tag:e+be596mHOH2idOs9BMBew==,type:str]
-    pgp:
-        - created_at: "2021-05-28T07:50:16Z"
-          enc: |
-            -----BEGIN PGP MESSAGE-----
-
-            hQIMAzCmaKGKv3neARAAoMpMQK2oIdbNW4EnYW4JQLgMNxxjLehT0FjPkvFG0pZq
-            zOTssPZI8LtRmVA4fa4bXKcQLkHMlm+jkK54tFfcDY0jL/6fiKGDpZorFdKEO2VE
-            MSFA5V79SQ29mKoemde4c1cDH9KQG5R3rGmXE0WF18RLlKLTL6EqZ1K/VunkDAIv
-            3cvdUH24Kz3F48KnQwkmK7m0JiRsj1xt21V/0Eqiaokz2nnP6yFrarjGO87Jd/n3
-            H+7qPT9nAawdeTeJWIlt/Ugafhv0IasANq5J37WPJCg9Rtcbc3Fz2rPUfFhnDQ2w
-            c9s/6xYPuH3kH/qypV0tv1RzsvZkGvSIlX+dl8r291iGgnX2jWPgo56o3iQkVMsH
-            eTd1RKHmbFQzxrivLpAyU94ctYVg7uLFPpxBmRiV3tiyIau9nofs5lfBV/1zq7T1
-            tDKlRiu9OQtrjtHdnPfN2yCHWrxsZ0zMTmLCSQDWw7AwnwtBp2mGlebvpbXvCgLC
-            ySxuLnXyigGObuuC39jdbP6C8Cp2XQNXhKrjDHXR0ieeyQMFOi3NqbWCvHq8sXQK
-            bt7zpSIpMPYcAWpp4gdmDp6fLk1gnhA5NiiRcxPYe73Ne+e2rxQLXiyR+7ZwW/LV
-            auY+Fe9zDv6rN6zmbEfLuIFzw5649wCCDNVDQaFUeTHG4IO5KHFDJ0LSUyVyF/LS
-            XgGCgzirRkRm1EobL1z3JT0Dd3nT7iQZ4C1tFJcxwCb0k37lEI+8sTQKuI2lo5W5
-            /XoEsS9iOe+aAoLWPDWcYXmhbrfXaAMzO31Hm97ibsNWyHfDa8sX4F2HmqD92KQ=
-            =Xsf0
-            -----END PGP MESSAGE-----
-          fp: 4D7E5EA804E21305AF4EF94352786FEE3C60E785
-    encrypted_regex: ^(licenseKey)$
-    version: 3.7.1
+  releaseName: newrelic-logging
+  chart:
+    spec:
+      chart: newrelic-logging
+      sourceRef:
+        kind: HelmRepository
+        name: newrelic
+        namespace: flux-system
+      version: "1.4.8"
+  interval: 1h0m0s
+  install:
+    remediation:
+      retries: 3
+  # Default values
+  # https://github.com/newrelic/helm-charts/blob/master/charts/newrelic-logging/values.yaml
+  values:
+    licenseKey: "abc123"

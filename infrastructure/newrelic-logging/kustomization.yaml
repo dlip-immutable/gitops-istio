@@ -4,3 +4,4 @@ namespace: newrelic-logging
 resources:
   - namespace.yaml
   - release.yaml
+  - secret.yaml
