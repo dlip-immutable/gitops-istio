@@ -2,7 +2,7 @@ apiVersion: networking.istio.io/v1alpha3
 kind: Sidecar
 metadata:
   name: default
-  namespace: prod
+  namespace: devops
 spec:
   egress:
     - hosts:
