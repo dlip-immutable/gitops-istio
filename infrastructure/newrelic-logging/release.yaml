@@ -18,5 +18,8 @@ spec:
       retries: 3
   # Default values
   # https://github.com/newrelic/helm-charts/blob/master/charts/newrelic-logging/values.yaml
-  values:
-    licenseKey: "abc123"
+  valuesFrom:
+  - secretKeyRef:
+      name: newrelic-logging
+      namespace: newrelic-logging
+      key: values.yaml
