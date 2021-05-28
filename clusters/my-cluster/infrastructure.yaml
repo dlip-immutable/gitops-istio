@@ -11,3 +11,10 @@ spec:
   path: ./infrastructure
   prune: true
   validation: client
+  # Enable decryption
+  decryption:
+    # Use the sops provider
+    provider: sops
+    secretRef:
+      # Reference the new 'sops-gpg' secret
+      name: sops-gpg
