@@ -1,5 +1,5 @@
 ---
 creation_rules:
-- encrypted_regex: '^(licenseKey)$'
+- encrypted_regex: '^(licenseKey|values.yaml)$'
   pgp: >-
     4D7E5EA804E21305AF4EF94352786FEE3C60E785
