@@ -6,5 +6,5 @@ metadata:
 spec:
   egress:
     - hosts:
-        - "prod/*"
+        - "devops/*"
         - "istio-system/*"
