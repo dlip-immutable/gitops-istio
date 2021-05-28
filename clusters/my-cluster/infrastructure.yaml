@@ -18,4 +18,3 @@ spec:
     secretRef:
       # Reference the new 'sops-gpg' secret
       name: sops-gpg
-      namespace: flux-system
