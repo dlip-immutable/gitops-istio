@@ -427,3 +427,38 @@ If you have any questions about progressive delivery:
   hands-on training and meetups.
 
 Your feedback is always welcome!
+
+
+## Setup
+
+### Import Encryption key
+
+```sh
+export KEY=EEB3714DB5922226D16A6782C787C391144AEFA
+gpg --export-secret-keys \
+ --armor $KEY |
+Add encryption key to file
+gpg --import key.pgp
+gpg --edit-key $KEY
+trust
+5
+q
+kubectl create namespace flux-system
+gpg --export-secret-keys \
+  --armor $KEY |
+kubectl create secret generic sops-gpg \
+  --namespace=flux-system \
+  --from-file=sops.asc=/dev/stdin
+```
+
+### Bootstrap Cluster
+
+```sh
+export GITHUB_TOKEN=<GITHUB_TOKEN>
+flux bootstrap github \
+  --owner=dlip-immutable \
+  --repository=gitops-istio \
+  --path=clusters/my-cluster \
+  --personal
+```
+
