@@ -22,5 +22,3 @@ spec:
   valuesFrom:
   - secretKeyRef:
       name: newrelic-logging-values
-      namespace: flux-system
-      key: values.yaml
