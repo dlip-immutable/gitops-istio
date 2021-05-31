@@ -19,6 +19,6 @@ spec:
       retries: 3
   # Default values
   # https://github.com/newrelic/helm-charts/blob/master/charts/newrelic-logging/values.yaml
-  valuesFrom:
-  - kind: Secret
-    name: newrelic-logging-values
+  # valuesFrom:
+  # - kind: Secret
+  #   name: newrelic-logging-values
