@@ -41,10 +41,6 @@ spec:
       kind: Deployment
       name: prometheus
       namespace: istio-system
-    - apiVersion: apps/v1
-      kind: Deployment
-      name: flagger
-      namespace: istio-system
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
 kind: Kustomization
