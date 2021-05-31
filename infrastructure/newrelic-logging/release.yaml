@@ -20,7 +20,7 @@ spec:
   # Default values
   # https://github.com/newrelic/helm-charts/blob/master/charts/newrelic-logging/values.yaml
   # valuesFrom:
-  # - secretKeyRef:
-  #     name: newrelic-logging
-  #     namespace: newrelic-logging
-  #     key: values.yaml
+  - secretKeyRef:
+      name: newrelic-logging-values
+      namespace: newrelic-logging
+      key: values.yaml
