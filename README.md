@@ -434,7 +434,7 @@ Your feedback is always welcome!
 ### Import Encryption key
 
 ```sh
-export KEY=EEB3714DB5922226D16A6782C787C391144AEFA
+export KEY=EEB3714DB5922226D16A6782C787C391144AEFAF
 gpg --export-secret-keys \
  --armor $KEY |
 Add encryption key to file
