@@ -13,12 +13,8 @@ spec:
         name: newrelic
         namespace: flux-system
       version: "1.4.8"
-  interval: 1h0m0s
-  install:
-    remediation:
-      retries: 3
   # Default values
   # https://github.com/newrelic/helm-charts/blob/master/charts/newrelic-logging/values.yaml
-  # valuesFrom:
-  # - kind: Secret
-  #   name: newrelic-logging-values
+  valuesFrom:
+  - kind: Secret
+    name: newrelic-logging-values
