@@ -21,4 +21,4 @@ spec:
   # https://github.com/newrelic/helm-charts/blob/master/charts/newrelic-logging/values.yaml
   valuesFrom:
   - secretKeyRef:
-      name: newrelic-logging-values
+    name: newrelic-logging-values
