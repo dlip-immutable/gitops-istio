@@ -16,9 +16,6 @@ spec:
   interval: 5m
   # Default values
   # https://github.com/newrelic/helm-charts/blob/master/charts/newrelic-logging/values.yaml
-  # valuesFrom:
-  # - kind: Secret
-  #   name: newrelic-logging-values
   valuesFrom:
-  - secretKeyRef:
-      name: newrelic-logging-values
+  - kind: Secret
+    name: newrelic-logging-values
