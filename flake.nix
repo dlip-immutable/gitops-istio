@@ -1,46 +1,67 @@
 {
-  description = "IMX Infrastructure";
-
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-release.url = "github:NixOS/nixpkgs/release-20.09";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     flake-utils.url = "github:numtide/flake-utils";
-    newrelic-istio-adapter-chart = {
-      url = "github:newrelic/newrelic-istio-adapter";
-      flake = false;
-    };
   };
 
-  outputs = { self, nixpkgs, flake-utils, newrelic-istio-adapter-chart, nixpkgs-release }:
+  outputs =
+    { self
+    , nixpkgs
+    , flake-utils
+    }:
     flake-utils.lib.eachDefaultSystem
       (system:
-        let
-          pkgs-release = import nixpkgs-release {
-            inherit system;
-            config.allowUnfree = true;
-          };
-
-          pkgs = import nixpkgs {
-            inherit system;
-            overlays = [];
-            config.allowUnfree = true;
-          };
-        in
-        rec {
-          inherit pkgs;
-          devShell = import ./shell.nix { inherit pkgs; };
-
-          defaultApp = apps.repl;
-          apps = {
-            repl = flake-utils.lib.mkApp
-              {
-                drv = pkgs.writeShellScriptBin "repl" ''
-                  confnix=$(mktemp)
-                  echo "builtins.getFlake (toString $(git rev-parse --show-toplevel))" >$confnix
-                  trap "rm $confnix" EXIT
-                  nix repl $confnix
-                '';
-              };
-          };
-        });
+      let
+        pkgs = import nixpkgs {
+          inherit system;
+          config.allowUnfree = true;
+        };
+        bootstrapCluster = with pkgs; writeScriptBin "bootstrap-cluster" ''
+          set -euo pipefail
+          kubectl create namespace flux-system || true
+          eval $(${_1password}/bin/op signin imtbl)
+          ${_1password}/bin/op list items --vault "Platform Ops" | op get item "gitops pgp key" --fields notesPlain | \
+          kubectl create secret generic sops-gpg \
+            --namespace=flux-system \
+            --from-file=sops.asc=/dev/stdin
+          ${fluxcd}/bin/flux bootstrap github \
+            --owner=dlip-immutable \
+            --repository=gitops-istio \
+            --path=clusters/my-cluster \
+            --personal
+        '';
+      in
+      rec {
+        inherit pkgs;
+        defaultApp = apps.repl;
+        apps = {
+          repl = flake-utils.lib.mkApp
+            {
+              drv = with pkgs; writeShellScriptBin "repl" ''
+                confnix=$(mktemp)
+                echo "builtins.getFlake (toString $(git rev-parse --show-toplevel))" >$confnix
+                trap "rm $confnix" EXIT
+                nix repl $confnix
+              '';
+            };
+          bootstrapCluster = flake-utils.lib.mkApp
+            {
+              drv = bootstrapCluster;
+            };
+        };
+        devShell = pkgs.mkShell {
+          buildInputs = with pkgs; [
+            _1password
+            aws-iam-authenticator
+            fluxcd
+            gitAndTools.gh
+            istioctl
+            kubernetes-helm
+            kubeval
+            kustomize
+            terraform_0_14
+            yq
+          ];
+        };
+      });
 }

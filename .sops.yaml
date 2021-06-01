@@ -1,5 +1,6 @@
 ---
 creation_rules:
-- encrypted_regex: "^(data|stringData)$"
-  pgp: >-
-    EEB3714DB5922226D16A6782C787C391144AEFAF
+  - encrypted_regex: "^(data|stringData)$"
+    pgp: >-
+      EEB3714DB5922226D16A6782C787C391144AEFAF,
+      35EC8863694D3AE39E2D5A7F4EC2D06565994389
